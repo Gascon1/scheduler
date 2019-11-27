@@ -5,7 +5,6 @@ import Appointment from '../components/Appointment'
 import axios from 'axios'
 import { getAppointmentsForDay, getInterview } from '../helpers/selectors'
 
-
 export default function Application(props) {
   // const [day, setDay] = useState("Monday");
   // const [days, setDays] = useState([])

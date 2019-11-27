@@ -1,17 +1,51 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import './styles.scss'
 import Header from './Header'
 import Show from './Show'
 import Empty from './Empty'
+import Form from './Form'
+import Confirm from './Confirm'
+import useVisualMode from '../../hooks/useVisualMode'
+
+
+const EMPTY = 'EMPTY';
+const SHOW = 'SHOW';
+const CREATE = 'CREATE';
+const CONFIRM = 'CONFIRM'
 
 
 export default function Appointment(props) {
+
+  const { mode, transition, back } = useVisualMode(
+    props.interview ? SHOW : EMPTY
+  );
+
+  const onAdd = () => {
+    transition(CREATE)
+  }
+
+  const onCancel = () => {
+    back()
+  }
 
   return (
     <article className="appointment">
       <Header time={props.time} />
 
-      {props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer} /> : <Empty />}
+      {mode === EMPTY && <Empty onAdd={onAdd} />}
+      {mode === SHOW && (
+        <Show
+          student={props.interview.student}
+          interviewer={props.interview.interviewer}
+        />
+      )}
+      {mode === CREATE && (
+        <Form
+          interviewers={[]}
+          onSave={("onSave")}
+          onCancel={onCancel}
+        />
+      )}
     </article>
   )
 }
