@@ -40,7 +40,7 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    transition(SAVING, true)
+    transition(SAVING)
     props
       .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
@@ -54,7 +54,7 @@ export default function Appointment(props) {
   }
 
   const onConfirm = () => {
-    transition(DELETING, true)
+    transition(DELETING)
     props
       .cancelInterview(props.id)
       .then(() => transition(EMPTY))
@@ -116,7 +116,7 @@ export default function Appointment(props) {
       {mode === ERROR_DELETE && (
         <Error
           message="Could not cancel appointment"
-          onClose={onClose}
+          onClose={onClose}  //WHY THE FUCK ISNT THIS WORKING
         />
       )}
     </article>
