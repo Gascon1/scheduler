@@ -13,6 +13,7 @@ const EMPTY = 'EMPTY';
 const SHOW = 'SHOW';
 const CREATE = 'CREATE';
 const CONFIRM = 'CONFIRM'
+const DELETING = 'DELETING'
 const SAVING = 'SAVING'
 
 
@@ -37,23 +38,30 @@ export default function Appointment(props) {
     };
     transition(SAVING)
     props.bookInterview(props.id, interview).then(() => transition(SHOW))
-    // return new Promise((resolve, reject) => {
-    //   resolve()
-    // })
-    //   .then(transition(SHOW))
+  }
+
+  const onDelete = () => {
+    transition(CONFIRM)
 
   }
 
+  const onConfirm = () => {
+    transition(DELETING)
+    props.cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+  }
 
   return (
     <article className="appointment">
       <Header time={props.time} />
 
       {mode === EMPTY && <Empty onAdd={onAdd} />}
-      {mode === SHOW && (
+      {mode === SHOW && props.interview && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onDelete={onDelete}
+          id={props.id}
         />
       )}
       {mode === CREATE && (
@@ -64,6 +72,14 @@ export default function Appointment(props) {
         />
       )}
       {mode === SAVING && <Status message="Saving" />}
+      {mode === DELETING && <Status message="Deleting" />}
+      {mode === CONFIRM && (
+        <Confirm
+          message="Are you sure you want to delete?"
+          onConfirm={onConfirm}
+          onCancel={onCancel}
+        />
+      )}
     </article>
   )
 }
