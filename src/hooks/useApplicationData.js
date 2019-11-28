@@ -1,19 +1,42 @@
-import { useState, useEffect } from 'react'
+import { useReducer, useEffect } from 'react'
 import axios from 'axios'
 
+const SET_DAY = 'SET_DAY'
+const SET_DAYS = 'SET_DAYS'
+const SET_INTERVIEWERS = 'SET_INTERVIEWERS'
+const SET_APPOINTMENTS = 'SET_APPOINTMENTS'
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case SET_DAY:
+      return ({ ...state, day: action.value })
+    case SET_DAYS:
+      return ({ ...state, days: action.value })
+    case SET_APPOINTMENTS:
+      return ({ ...state, appointments: action.value })
+    case SET_INTERVIEWERS:
+      return ({ ...state, interviewers: action.value })
+    default:
+      throw new Error(
+        `Tried to reduce with unsupported action type: ${action.type}`
+      )
+  }
+}
 const useApplicationData = () => {
 
-  const [state, setState] = useState({
+
+
+  const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: {}
   });
 
-  const setDay = day => setState({ ...state, day });
-  const setDays = days => setState(prev => ({ ...prev, days }));
-  const setAppointments = appointments => setState(prev => ({ ...prev, appointments }));
-  const setInterviewers = interviewers => setState(prev => ({ ...prev, interviewers }));
+  const setDay = day => dispatch({ type: SET_DAY, value: day });
+  const setDays = days => dispatch({ type: SET_DAYS, value: days });
+  const setAppointments = appointments => dispatch({ type: SET_APPOINTMENTS, value: appointments });
+  const setInterviewers = interviewers => dispatch({ type: SET_INTERVIEWERS, value: interviewers });
 
 
   const bookInterview = (id, interview) => {
