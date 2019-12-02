@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DayList from './DayList'
 import "components/Application.scss";
 import Appointment from '../components/Appointment'
@@ -19,6 +19,7 @@ export default function Application(props) {
 
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
+  console.log(appointments.length, interviewers.length)
 
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
