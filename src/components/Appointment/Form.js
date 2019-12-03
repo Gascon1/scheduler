@@ -41,6 +41,7 @@ export default function Form(props) {
           <input
             className="appointment__create-input text--semi-bold"
             name='name'
+            data-testid="student-name-input"
             value={name}
             type="text"
             placeholder="Enter Student Name"
