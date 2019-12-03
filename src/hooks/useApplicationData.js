@@ -1,30 +1,12 @@
 import { useReducer, useEffect } from 'react'
 import axios from 'axios'
+import reducer, {
+  SET_DAY,
+  SET_DAYS,
+  SET_APPOINTMENTS,
+  SET_INTERVIEWERS
+} from '../reducers/application'
 
-const SET_DAY = 'SET_DAY'
-const SET_DAYS = 'SET_DAYS'
-const SET_INTERVIEWERS = 'SET_INTERVIEWERS'
-const SET_APPOINTMENTS = 'SET_APPOINTMENTS'
-const SET_SPOTS = 'SET_SPOTS'
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case SET_DAY:
-      return ({ ...state, day: action.value })
-    case SET_DAYS:
-      return ({ ...state, days: action.value })
-    case SET_APPOINTMENTS:
-      return ({ ...state, appointments: action.value })
-    case SET_INTERVIEWERS:
-      return ({ ...state, interviewers: action.value })
-    case SET_SPOTS:
-      return ({ ...state, days: action.value })
-    default:
-      throw new Error(
-        `Tried to reduce with unsupported action type: ${action.type}`
-      )
-  }
-}
 const useApplicationData = () => {
 
 
@@ -34,25 +16,15 @@ const useApplicationData = () => {
     days: [],
     appointments: {},
     interviewers: {},
-    // spots: []
   });
 
   const setDay = day => dispatch({ type: SET_DAY, value: day });
   const setDays = days => dispatch({ type: SET_DAYS, value: days });
   const setAppointments = appointments => dispatch({ type: SET_APPOINTMENTS, value: appointments });
   const setInterviewers = interviewers => dispatch({ type: SET_INTERVIEWERS, value: interviewers });
-  // const setSpots = spots => dispatch({ type: SET_SPOTS, value: spots });
 
 
   const bookInterview = (id, interview) => {
-    // const appointment = {
-    //   ...state.appointments[id],
-    //   interview: { ...interview }
-    // };
-    // const appointments = {
-    //   ...state.appointments,
-    //   [id]: appointment
-    // };
     return axios
       .put(`http://localhost:8001/api/appointments/${id}`, { interview })
       .then(() => {
@@ -97,7 +69,6 @@ const useApplicationData = () => {
       setDays(value[0].data)
       setInterviewers(value[2].data)
       setAppointments(value[1].data)
-      // setSpots(getSpots(value[0].data))
     })
   }, [])
 
