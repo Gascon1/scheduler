@@ -7,9 +7,12 @@ import reducer, {
   SET_INTERVIEWERS
 } from '../reducers/application'
 
+
+/**
+ * this function englobes all the other functions
+ * inside of it for the export 
+ */
 const useApplicationData = () => {
-
-
 
   const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
@@ -18,12 +21,18 @@ const useApplicationData = () => {
     interviewers: {},
   });
 
+  /**
+   * these 4 functions are the dispatch functions for the reducers
+   */
   const setDay = day => dispatch({ type: SET_DAY, value: day });
   const setDays = days => dispatch({ type: SET_DAYS, value: days });
   const setAppointments = appointments => dispatch({ type: SET_APPOINTMENTS, value: appointments });
   const setInterviewers = interviewers => dispatch({ type: SET_INTERVIEWERS, value: interviewers });
 
-
+  /**
+   * this function makes the put request to book 
+   * a new interview 
+   */
   const bookInterview = (id, interview) => {
     return axios
       .put(`http://localhost:8001/api/appointments/${id}`, { interview })
@@ -41,6 +50,12 @@ const useApplicationData = () => {
       })
   }
 
+  /**
+   * this function makes the delete request
+   * to cancel an existing interview. In the 
+   * then, this function sets the interview to 
+   * null, to free up the space
+   */
   const cancelInterview = (id) => {
 
     return axios

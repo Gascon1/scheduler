@@ -1,3 +1,7 @@
+/**
+ * this function takes in the state and a day parameter, 
+ * and returns all the appointments for that specific day
+ */
 export function getAppointmentsForDay(state, day) {
   const result = []
 
@@ -20,7 +24,10 @@ export function getAppointmentsForDay(state, day) {
   return result;
 }
 
-
+/**
+ * Takes in the state and an interview, and returns all the 
+ * information at that specific appointment (interview)
+ */
 export function getInterview(state, interview) {
 
   if (interview && interview.interviewer && String(interview.interviewer) in state.interviewers) {
@@ -29,6 +36,11 @@ export function getInterview(state, interview) {
   return null;
 }
 
+
+/**
+ * takes in the state and a specific day and returns 
+ * a specific array of interviewers for that day
+ */
 export function getInterviewersForDay(state, day) {
   const result = []
   const days = state.days.filter(specificDay => specificDay.name === day);
