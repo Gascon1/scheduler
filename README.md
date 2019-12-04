@@ -26,7 +26,9 @@ Interview scheduler allows users to book meetings with interviewers on any given
 2. Install the dependencies using the `npm install` command.
 3. Start the Webpack Development Server using`npm start`. The app will be served at <http://localhost:8000/>.
 4. Go to <http://localhost:8000/> in your browser.
-5. Enjoy the full features of the website (Look at the remaining spots for a given day and the available interviewers)
+5. Fork the scheduler-api repository and clone it as well.
+6. Follow the instructions in the README.md of scheduler-api.
+7. Enjoy the full features of the website (Look at the remaining spots for a given day and the available interviewers)
 
 ## Run the Webpack Development Server
 
