@@ -49,18 +49,18 @@ describe('Application', () => {
 
     fireEvent.click(getByText(appointment, "Save"));
 
+    // console.log(prettyDOM(appointment));
 
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
 
-    // debug(prettyDOM(appointment));
+    debug(prettyDOM(appointment));
 
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
 
-    console.log(prettyDOM(day));
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
 
   });
